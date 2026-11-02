@@ -1,0 +1,5 @@
+# BAO-only consensus results, eboss
+0.38 1.027e+01 DM_over_rs
+0.38 2.489e+01 DH_over_rs
+0.51 1.338e+01 DM_over_rs
+0.51 2.243e+01 DH_over_rs

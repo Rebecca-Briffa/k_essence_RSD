@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+.idea/
+*.egg-info/
+.venv/
+venv/
+
+# MCMC chains are too large for GitHub (several files >100 MB, ~2 GB total).
+# Keep them locally under chains/; host separately (e.g. Zenodo) if needed.
+chains/

@@ -1,0 +1,27 @@
+Absolute AIC / BIC (Results_0211 reruns)
+BIC = k ln N - 2 ln L_max; N_PN=1657 (fixed calibrator cut)
+
+=== CC+PN  (N = 1672) ===
+model       k      lnL_max       chi2        AIC        BIC
+LCDM        3    -730.2811    1460.56    1466.56    1482.83
+Model_1     4    -730.2847    1460.57    1468.57    1490.26
+Model_2     5    -730.1082    1460.22    1470.22    1497.33
+
+=== CC+PN+BAO  (N = 1685) ===
+model       k      lnL_max       chi2        AIC        BIC
+LCDM        4    -736.6701    1473.34    1481.34    1503.06
+Model_1     5    -736.6739    1473.35    1483.35    1510.50
+Model_2     6    -734.3621    1468.72    1480.72    1513.30
+
+=== CC+PN+RSD  (N = 1692) ===
+model       k      lnL_max       chi2        AIC        BIC
+LCDM        5    -737.2134    1474.43    1484.43    1511.60
+Model_1     6    -737.2540    1474.51    1486.51    1519.11
+Model_2     7    -737.1626    1474.33    1488.33    1526.36
+
+=== CC+PN+BAO+RSD  (N = 1705) ===
+model       k      lnL_max       chi2        AIC        BIC
+LCDM        6    -743.7886    1487.58    1499.58    1532.23
+Model_1     7    -743.8475    1487.69    1501.69    1539.78
+Model_2     8    -741.7389    1483.48    1499.48    1543.01
+

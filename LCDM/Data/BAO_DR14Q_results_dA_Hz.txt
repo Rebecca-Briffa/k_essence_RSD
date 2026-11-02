@@ -1,0 +1,10 @@
+# BAO-only eBOSS DR14Q, Zhao et al. 2018
+0.978 dA(rsfid/rs) 1586.18
+0.978 Hz(rs/rsfid) 113.72
+1.230 dA(rsfid/rs) 1769.08
+1.230 Hz(rs/rsfid) 131.44
+1.526 dA(rsfid/rs) 1768.77
+1.526 Hz(rs/rsfid) 148.11
+1.944 dA(rsfid/rs) 1807.98
+1.944 Hz(rs/rsfid) 172.63
+

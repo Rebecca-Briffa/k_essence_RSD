@@ -1,0 +1,26 @@
+dX = X_model - X_LCDM (Results_0211)
+
+=== CC+PN ===
+model           dchi2       dAIC       dBIC
+LCDM           0.0000     0.0000     0.0000
+Model_1        0.0072     2.0072     7.4290
+Model_2       -0.3457     3.6543    14.4979
+
+=== CC+PN+BAO ===
+model           dchi2       dAIC       dBIC
+LCDM           0.0000     0.0000     0.0000
+Model_1        0.0076     2.0076     7.4371
+Model_2       -4.6159    -0.6159    10.2432
+
+=== CC+PN+RSD ===
+model           dchi2       dAIC       dBIC
+LCDM           0.0000     0.0000     0.0000
+Model_1        0.0812     2.0812     7.5149
+Model_2       -0.1015     3.8985    14.7658
+
+=== CC+PN+BAO+RSD ===
+model           dchi2       dAIC       dBIC
+LCDM           0.0000     0.0000     0.0000
+Model_1        0.1179     2.1179     7.5592
+Model_2       -4.0994    -0.0994    10.7832
+
