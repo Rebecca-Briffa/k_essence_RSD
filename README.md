@@ -38,8 +38,6 @@ Scripts are meant to be run from inside the corresponding model directory (so re
 
 ## Sampled parameters
 
-Column order in each chain file matches the vector below.
-
 ### ΛCDM (`LCDM/`)
 
 | Combination | Parameters |
@@ -68,27 +66,6 @@ Column order in each chain file matches the vector below.
 | CC+PN+BAO+RSD | \(H_0\), \(\Omega_{m,0}\), \(x_0\), \(\lambda\), \(\sigma_{8,0}\), \(D'(0)\), \(M\), \(r_{\rm drag}\) |
 
 \(\sigma_{8,0}\) and \(D'(0)\) are sampled only when RSD is included. \(S_8=\sigma_{8,0}\sqrt{\Omega_{m,0}/0.3}\) is derived in post-processing.
-
-## Chain and log-probability files
-
-Each MCMC script writes a chain and a matching log-probability file in the working directory. Filenames encode model, dataset, and run tag:
-
-| Model | Combination | Chain file | Log-prob file |
-|-------|-------------|------------|---------------|
-| LCDM | CC+PN | `LCDM_CC_PN_chain_2110.txt` | `LCDM_CC_PN_log_prob_2110.txt` |
-| LCDM | CC+PN+BAO | `LCDM_CC_PN_BAO_chain_2110.txt` | `LCDM_CC_PN_BAO_log_prob_2110.txt` |
-| LCDM | CC+PN+RSD | `LCDM_CC_PN_fs8_chain_rd_2110.txt` | `LCDM_CC_PN_fs8_log_prob_rd_2110.txt` |
-| LCDM | CC+PN+BAO+RSD | `LCDM_CC_PN_BAO_fs8_chain_rd_2110.txt` | `LCDM_CC_PN_BAO_fs8_log_prob_rd_2110.txt` |
-| Model 1 | CC+PN | `CC_PN_chain_2710.txt` | `CC_PN_log_prob_2710.txt` |
-| Model 1 | CC+PN+BAO | `CC_PN_BAO_chain_rd_2710.txt` | `CC_PN_BAO_log_prob_rd_2710.txt` |
-| Model 1 | CC+PN+RSD | `CC_PN_fs8_chain_rd_2810.txt` | `CC_PN_fs8_log_prob_rd_2810.txt` |
-| Model 1 | CC+PN+BAO+RSD | `CC_PN_BAO_fs8_chain_rd_2810.txt` | `CC_PN_BAO_fs8_log_prob_rd_2810.txt` |
-| Model 2 | CC+PN | `M2_CC_PN_chain_latest_0211.txt` | `M2_CC_PN_log_prob_latest_0211.txt` |
-| Model 2 | CC+PN+BAO | `M2_CC_PN_BAO_chain_latest_tight_2710.txt` | `M2_CC_PN_BAO_log_prob_latest_2710.txt` |
-| Model 2 | CC+PN+RSD | `M2_CC_PN_RSD_chain_latest_tight_2710.txt` | `M2_CC_PN_RSD_log_prob_latest_tight_2710.txt` |
-| Model 2 | CC+PN+BAO+RSD | `M2_CC_PN_BAO_RSD_chain_latest_2210_tight.txt` | `M2_CC_PN_BAO_RSD_log_prob_2210_tight.txt` |
-
-The map used by the plotting pipeline is `Results/paths.py`.
 
 ## Results/
 
