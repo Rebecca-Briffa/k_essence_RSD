@@ -1,29 +1,106 @@
 # k-essence RSD
 
-Late-time MCMC constraints for kinetic *k*-essence (Model 1 / Model 2) versus ΛCDM, using cosmic chronometers, Pantheon+SH0ES, DESI BAO (free \(r_{\rm drag}\)), and RSD/\(f\sigma_8\).
+MCMC analysis of kinetic *k*-essence (Model 1 and Model 2) against flat ΛCDM, using cosmic chronometers (CC), Pantheon+SH0ES (PN), DESI BAO with free \(r_{\rm drag}\), and RSD/\(f\sigma_8\).
 
-## Layout
+## Repository layout
 
-| Path | Contents |
-|------|----------|
-| `LCDM/` | ΛCDM MCMC runners + `Data/` |
-| `Model_1/` | Model 1 runners + `Data/` |
-| `Model_2/` | Model 2 runners + `Data/` |
-| `Results/` | AIC/BIC tables, GetDist triangles, whisker & \(f\sigma_8\) plots (Nov 2026 reruns) |
-| `chains/` | Latest chain + log-prob files (**local only** — not on GitHub; see below) |
-
-## Chains
-
-The Nov 2026 rerun chains live in `chains/{LCDM,Model_1,Model_2}/` on the local copy. They are **not** pushed to GitHub (six files exceed the 100 MB limit; total ~2 GB). Keep them beside this repo or archive them on Zenodo / Git LFS if you need a remote copy.
-
-## Results
-
-Regenerate tables/figures (after placing chains where `Results/paths.py` expects them):
-
-```bash
-python Results/run_all.py
+```
+k_essence_RSD/
+├── LCDM/                 # flat ΛCDM
+├── Model_1/              # k-essence Model 1 (α_phys)
+├── Model_2/              # k-essence Model 2 (x₀, λ)
+└── Results/              # post-processing tables and figures
 ```
 
-## Note
+Each model directory has the same structure:
 
-`Model_2/CC_PNp.py` is the corrected 5-parameter CC+PN run (`ndim=5`, outputs `M2_CC_PN_*_latest_0211.txt`).
+| Path | Role |
+|------|------|
+| `CC_PNp.py` | MCMC: CC + PN |
+| `CC_PNp_BAO.py` | MCMC: CC + PN + BAO |
+| `CC_PNp_fs8.py` | MCMC: CC + PN + RSD |
+| `CC_PNp_BAO_fs8.py` | MCMC: CC + PN + BAO + RSD |
+| `Likelihoods.py` | Likelihoods (CC, PN, BAO, RSD) |
+| `PNplus_data.py` | Pantheon+SH0ES data cut (incl. calibrators) |
+| `solver_new.py` / `util.py` | Background / growth helpers |
+| `Data/` | Observational inputs used by the likelihoods |
+
+Scripts are meant to be run from inside the corresponding model directory (so relative `Data/` paths resolve).
+
+## Dataset abbreviations
+
+| Tag | Data |
+|-----|------|
+| CC | Cosmic chronometers |
+| PN | Pantheon+SH0ES |
+| BAO | DESI BAO (\(r_{\rm drag}\) free when BAO is included) |
+| RSD | \(f\sigma_8\) / growth |
+
+## Sampled parameters
+
+Column order in each chain file matches the vector below.
+
+### ΛCDM (`LCDM/`)
+
+| Combination | Parameters |
+|-------------|------------|
+| CC+PN | \(H_0\), \(\Omega_{m,0}\), \(M\) |
+| CC+PN+BAO | \(H_0\), \(\Omega_{m,0}\), \(M\), \(r_{\rm drag}\) |
+| CC+PN+RSD | \(H_0\), \(\Omega_{m,0}\), \(\sigma_{8,0}\), \(D'(0)\), \(M\) |
+| CC+PN+BAO+RSD | \(H_0\), \(\Omega_{m,0}\), \(\sigma_{8,0}\), \(D'(0)\), \(M\), \(r_{\rm drag}\) |
+
+### Model 1 (`Model_1/`)
+
+| Combination | Parameters |
+|-------------|------------|
+| CC+PN | \(H_0\), \(\Omega_{m,0}\), \(\alpha_{\rm phys}\), \(M\) |
+| CC+PN+BAO | \(H_0\), \(\Omega_{m,0}\), \(\alpha_{\rm phys}\), \(M\), \(r_{\rm drag}\) |
+| CC+PN+RSD | \(H_0\), \(\Omega_{m,0}\), \(\alpha_{\rm phys}\), \(\sigma_{8,0}\), \(D'(0)\), \(M\) |
+| CC+PN+BAO+RSD | \(H_0\), \(\Omega_{m,0}\), \(\alpha_{\rm phys}\), \(\sigma_{8,0}\), \(D'(0)\), \(M\), \(r_{\rm drag}\) |
+
+### Model 2 (`Model_2/`)
+
+| Combination | Parameters |
+|-------------|------------|
+| CC+PN | \(H_0\), \(\Omega_{m,0}\), \(x_0\), \(\lambda\), \(M\) |
+| CC+PN+BAO | \(H_0\), \(\Omega_{m,0}\), \(x_0\), \(\lambda\), \(M\), \(r_{\rm drag}\) |
+| CC+PN+RSD | \(H_0\), \(\Omega_{m,0}\), \(x_0\), \(\lambda\), \(\sigma_{8,0}\), \(D'(0)\), \(M\) |
+| CC+PN+BAO+RSD | \(H_0\), \(\Omega_{m,0}\), \(x_0\), \(\lambda\), \(\sigma_{8,0}\), \(D'(0)\), \(M\), \(r_{\rm drag}\) |
+
+\(\sigma_{8,0}\) and \(D'(0)\) are sampled only when RSD is included. \(S_8=\sigma_{8,0}\sqrt{\Omega_{m,0}/0.3}\) is derived in post-processing.
+
+## Chain and log-probability files
+
+Each MCMC script writes a chain and a matching log-probability file in the working directory. Filenames encode model, dataset, and run tag:
+
+| Model | Combination | Chain file | Log-prob file |
+|-------|-------------|------------|---------------|
+| LCDM | CC+PN | `LCDM_CC_PN_chain_2110.txt` | `LCDM_CC_PN_log_prob_2110.txt` |
+| LCDM | CC+PN+BAO | `LCDM_CC_PN_BAO_chain_2110.txt` | `LCDM_CC_PN_BAO_log_prob_2110.txt` |
+| LCDM | CC+PN+RSD | `LCDM_CC_PN_fs8_chain_rd_2110.txt` | `LCDM_CC_PN_fs8_log_prob_rd_2110.txt` |
+| LCDM | CC+PN+BAO+RSD | `LCDM_CC_PN_BAO_fs8_chain_rd_2110.txt` | `LCDM_CC_PN_BAO_fs8_log_prob_rd_2110.txt` |
+| Model 1 | CC+PN | `CC_PN_chain_2710.txt` | `CC_PN_log_prob_2710.txt` |
+| Model 1 | CC+PN+BAO | `CC_PN_BAO_chain_rd_2710.txt` | `CC_PN_BAO_log_prob_rd_2710.txt` |
+| Model 1 | CC+PN+RSD | `CC_PN_fs8_chain_rd_2810.txt` | `CC_PN_fs8_log_prob_rd_2810.txt` |
+| Model 1 | CC+PN+BAO+RSD | `CC_PN_BAO_fs8_chain_rd_2810.txt` | `CC_PN_BAO_fs8_log_prob_rd_2810.txt` |
+| Model 2 | CC+PN | `M2_CC_PN_chain_latest_0211.txt` | `M2_CC_PN_log_prob_latest_0211.txt` |
+| Model 2 | CC+PN+BAO | `M2_CC_PN_BAO_chain_latest_tight_2710.txt` | `M2_CC_PN_BAO_log_prob_latest_2710.txt` |
+| Model 2 | CC+PN+RSD | `M2_CC_PN_RSD_chain_latest_tight_2710.txt` | `M2_CC_PN_RSD_log_prob_latest_tight_2710.txt` |
+| Model 2 | CC+PN+BAO+RSD | `M2_CC_PN_BAO_RSD_chain_latest_2210_tight.txt` | `M2_CC_PN_BAO_RSD_log_prob_2210_tight.txt` |
+
+The map used by the plotting pipeline is `Results/paths.py`.
+
+## Results/
+
+Precomputed tables and figures for the combinations above:
+
+| File | Content |
+|------|---------|
+| `AIC_BIC_tables.tex` / `AIC_BIC_full.csv` | Absolute and ΔAIC / ΔBIC vs ΛCDM |
+| `*_all_combinations_getdist.pdf` | Triangle plots (all four data combinations) |
+| `*_constraints.txt` / `.tex` | Peak ± 68% equal-tailed constraints |
+| `whisker_summary.pdf` | \(H_0\), \(\Omega_{m,0}\), \(\sigma_{8,0}\), \(S_8\) |
+| `sigma8_S8_constraints.tex` | \(\sigma_{8,0}\) and \(S_8\) (RSD combinations only) |
+| `fs8_residuals_BAO_RSD.pdf` | \(f\sigma_8\) theory vs data at the joint MAP |
+
+BIC uses \(N_{\rm PN}=1657\) (fixed Pantheon+SH0ES selection): \(N=1672\) (CC+PN), \(1685\) (+BAO), \(1692\) (+RSD), \(1705\) (+BAO+RSD).
